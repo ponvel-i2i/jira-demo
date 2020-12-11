@@ -54,6 +54,23 @@ app.post("/issue/create", upload.single("file"), async (req, res) => {
     res.send(issue);
 });
 
+app.post("/issue/createWithoutAttachment", async(req, res) => {
+    const params = {
+        fields: {
+            project: {
+                key: req.body.project
+            },
+            summary: req.body.summary,
+            description: req.body.desc,
+            issuetype: {
+                name: req.body.issueType
+            }
+        }
+    };
+    const issue = await jira.issue.createIssue(params);
+    res.send(issue);
+});
+
 app.get("/get", async (req, res) => {
     const params = { issueKey: req.query.id };
     const issue = await jira.issue.getIssue(params);
