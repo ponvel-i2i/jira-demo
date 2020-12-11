@@ -27,6 +27,10 @@ const jira = new JiraClient({
     }
 });
 
+app.get("/", (req, res) => {
+    res.send("Welcome");
+});
+
 app.post("/issue/create", upload.single("file"), async (req, res) => {
     const params = {
         fields: {
